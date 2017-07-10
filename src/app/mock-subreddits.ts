@@ -26,5 +26,18 @@ export const SUBREDDITS: Subreddit[] = [
       'agree',
       '*flames*'
     ], 4)
-  ], 2)
+  ], 2),
+
+  new Subreddit('Puppies', [
+    new UserPost('what vaccines do new puppies need?', 'just got a new pug', [
+      'no vaccines',
+      'why would you want a puppy?',
+      'Puppies are ugly'
+    ], 5),
+    new UserPost("free puppies", 'buy 5 puppies get one free', [
+      'this is deceiving',
+      'click bait',
+      '*flames*'
+    ], 6)
+  ], 3)
 ];

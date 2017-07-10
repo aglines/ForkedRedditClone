@@ -22,6 +22,10 @@ export class PostComponent implements OnInit {
     private subredditService: SubredditService
   ) { }
 
+  formSubmit(comment: string) {
+    this.subredditService.addComment(comment, this.selectedPostId);
+  }
+
   ngOnInit(): void {
     this.route.params.forEach(urlParam => {
       this.selectedPostId = parseInt(urlParam['postId']);

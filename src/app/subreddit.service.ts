@@ -39,4 +39,9 @@ export class SubredditService {
       }
     }
   }
+
+  addComment(commentToAdd: string, targetPostId: number): void {
+    let post = this.getPostById(targetPostId);
+    post.comments.push(commentToAdd);
+  }
 }
