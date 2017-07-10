@@ -20,11 +20,11 @@ export const SUBREDDITS: Subreddit[] = [
       'agree',
       'disagee',
       '*more flames*'
-    ], 1),
+    ], 3),
     new UserPost("What is 'this'?", 'nobody knows', [
       'first',
       'agree',
       '*flames*'
-    ], 2)
+    ], 4)
   ], 2)
 ];

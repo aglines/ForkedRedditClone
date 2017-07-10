@@ -1,0 +1,10 @@
+<h1 class="text-center jumbotron">{{selectedPostSubreddit}}</h1>
+<div class="well">
+  <h2>{{selectedPost.postTitle}}</h2>
+  <h3>{{selectedPost.description}}</h3>
+</div>
+<div *ngFor="let comment of selectedPost.comments" class="panel panel-danger">
+  <div class="panel-body">
+    {{comment}}
+  </div>
+</div>

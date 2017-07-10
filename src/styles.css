@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+.container .jumbotron {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  width: 100%;
+}

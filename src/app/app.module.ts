@@ -7,12 +7,14 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { SubredditsComponent } from './subreddits/subreddits.component';
 import { TopicComponent } from './topic/topic.component';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubredditsComponent,
-    TopicComponent
+    TopicComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

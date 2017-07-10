@@ -1,7 +1,7 @@
 <h1 class="text-center jumbotron">{{subredditTitle}}</h1>
 
-<div *ngFor='let post of posts'>
-  <h2>{{post.postTitle}}</h2>
+<div *ngFor='let post of posts' class="panel panel-danger">
+  <a routerLink='{{post.id}}'><h2 class="panel-body">{{post.postTitle}}</h2></a>
   <!-- <h3>{{post.description}}</h3> -->
   <!-- <p *ngFor='let comment of post.comments'>{{comment}}</p> -->
 </div>
