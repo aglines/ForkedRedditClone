@@ -1,0 +1,8 @@
+<div class="well" *ngFor='let subreddit of subreddits'>
+  <h1>{{subreddit.title}}</h1>
+  <ul *ngFor='let post of subreddit.userPosts'>
+    <h2>{{post.postTitle}}</h2>
+    <h3>{{post.description}}</h3>
+    <p *ngFor='let comment of post.comments'>{{comment}}</p>
+  </ul>
+</div>
