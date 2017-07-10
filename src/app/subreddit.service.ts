@@ -13,8 +13,10 @@ export class SubredditService {
   }
 
   getPostsBySubredditId(id: number): UserPost[] {
-    const subreddit = SUBREDDITS.filter(sub => sub.id === id)[0];
-    console.log(subreddit.userPosts)
-    return subreddit.userPosts;
+    return SUBREDDITS.filter(sub => sub.id === id)[0].userPosts;
+  }
+
+  getSubredditTitle(id: number): string {
+    return SUBREDDITS.filter(sub => sub.id === id)[0].title;
   }
 }

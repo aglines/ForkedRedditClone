@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 
 export class TopicComponent implements OnInit {
   subredditId: number = null;
+  subredditTitle: string = null;
   posts: UserPost[];
 
   constructor(
@@ -27,5 +28,7 @@ export class TopicComponent implements OnInit {
     });
 
     this.posts = this.subredditService.getPostsBySubredditId(this.subredditId);
+
+    this.subredditTitle = this.subredditService.getSubredditTitle(this.subredditId);
   }
 }

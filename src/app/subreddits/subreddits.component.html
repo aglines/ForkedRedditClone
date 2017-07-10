@@ -1,9 +1,3 @@
 <div class="well" *ngFor='let subreddit of subreddits'>
-  <h1 class="text-center">er/{{subreddit.title}}</h1>
+  <h1 class="text-center"><a routerLink='subreddits/{{subreddit.id}}'>er/{{subreddit.title}}</a></h1>
 </div>
-
-<!-- <ul *ngFor='let post of subreddit.userPosts'>
-<h2>{{post.postTitle}}</h2>
-<h3>{{post.description}}</h3>
-<p *ngFor='let comment of post.comments'>{{comment}}</p>
-</ul> -->
