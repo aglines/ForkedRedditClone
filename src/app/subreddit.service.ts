@@ -44,4 +44,31 @@ export class SubredditService {
     let post = this.getPostById(targetPostId);
     post.comments.push(commentToAdd);
   }
+
+  addPost(postTitle: string, postContent:string, targetSubredditId: number): void {
+    let targetSubreddit = SUBREDDITS.filter(sub => sub.id === targetSubredditId)[0];
+    targetSubreddit.userPosts.push(new UserPost(postTitle, postContent, [], this.generatePostId()));
+  }
+
+  generatePostId(): number {
+    let generatedId = 0;
+    let posts = this.getAllPosts();
+
+    for(let i = 0; i < posts.length; i++) {
+      if (posts[i].id > generatedId) {
+        generatedId = posts[i].id;
+      }
+    }
+    return generatedId + 1;
+  }
+
+  getAllPosts() {
+    let output = [];
+
+    SUBREDDITS.forEach(sub => {
+      output.push(...sub.userPosts);
+    });
+
+    return output;
+  }
 }

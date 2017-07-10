@@ -31,4 +31,8 @@ export class TopicComponent implements OnInit {
 
     this.subredditTitle = this.subredditService.getSubredditTitle(this.subredditId);
   }
+
+  formPostSubmit(postTitle: string, postContent: string): void {
+    this.subredditService.addPost(postTitle, postContent, this.subredditId);
+  }
 }

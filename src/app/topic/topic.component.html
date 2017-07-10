@@ -2,6 +2,11 @@
 
 <div *ngFor='let post of posts' class="panel panel-danger">
   <a routerLink='{{post.id}}'><h2 class="panel-body">{{post.postTitle}}</h2></a>
-  <!-- <h3>{{post.description}}</h3> -->
-  <!-- <p *ngFor='let comment of post.comments'>{{comment}}</p> -->
 </div>
+<div class="form-group">
+  <label>New Post Title:</label>
+  <input #postTitle type="text" class="form-control">
+  <label>Content:</label>
+  <textarea #postContent type="text" class="form-control"></textarea>
+</div>
+<button type="button" class="btn btn-primary" (click)='formPostSubmit(postTitle.value, postContent.value); postTitle.value=""; postContent.value="";'>Post</button>
