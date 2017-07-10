@@ -6,11 +6,13 @@ import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { SubredditsComponent } from './subreddits/subreddits.component';
+import { TopicComponent } from './topic/topic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SubredditsComponent
+    SubredditsComponent,
+    TopicComponent
   ],
   imports: [
     BrowserModule,

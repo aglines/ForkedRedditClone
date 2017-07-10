@@ -14,10 +14,12 @@ export class SubredditsComponent implements OnInit {
 
   subreddits: Subreddit[];
 
-  constructor(private router: Router, private subredditService: SubredditService) { }
+  constructor(
+    private router: Router,
+    private subredditService: SubredditService
+  ) { }
 
   ngOnInit(): void {
     this.subreddits = this.subredditService.getSubreddits();
   }
-
 }
