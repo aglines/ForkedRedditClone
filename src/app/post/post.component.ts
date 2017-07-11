@@ -28,11 +28,11 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.forEach(urlParam => {
-      this.selectedPostId = parseInt(urlParam['postId']);
+      this.selectedPostId = Number(urlParam['postId']);
     });
 
     this.selectedPost = this.subredditService.getPostById(this.selectedPostId);
-    this.selectedPostSubreddit = this.subredditService.getSubredditTitleByPostID(this.selectedPostId);
+    this.selectedPostSubreddit = this.subredditService.getSubredditTitleByPostId(this.selectedPostId);
   }
 
 }

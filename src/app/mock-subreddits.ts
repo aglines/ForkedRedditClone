@@ -1,5 +1,5 @@
-import { Subreddit } from "./subreddit.model";
-import { UserPost } from "./user-post.model";
+import { Subreddit } from './subreddit.model';
+import { UserPost } from './user-post.model';
 
 export const SUBREDDITS: Subreddit[] = [
   new Subreddit('Jokes', [
@@ -21,7 +21,7 @@ export const SUBREDDITS: Subreddit[] = [
       'disagee',
       '*more flames*'
     ], 3),
-    new UserPost("What is 'this'?", 'nobody knows', [
+    new UserPost('What is "this"?', 'nobody knows', [
       'first',
       'agree',
       '*flames*'
@@ -34,7 +34,7 @@ export const SUBREDDITS: Subreddit[] = [
       'why would you want a puppy?',
       'Puppies are ugly'
     ], 5),
-    new UserPost("free puppies", 'buy 5 puppies get one free', [
+    new UserPost('free puppies', 'buy 5 puppies get one free', [
       'this is deceiving',
       'click bait',
       '*flames*'

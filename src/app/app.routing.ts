@@ -6,7 +6,7 @@ import { PostComponent } from './post/post.component';
 
 const appRoutes: Routes = [
   {
-    path: "",
+    path: '',
     component: SubredditsComponent
   },
   {

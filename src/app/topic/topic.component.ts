@@ -24,10 +24,10 @@ export class TopicComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.forEach(urlParam => {
-      this.subredditId = parseInt(urlParam['id']);
+      this.subredditId = Number(urlParam['id']);
     });
 
-    this.posts = this.subredditService.getPostsBySubredditId(this.subredditId);
+    this.posts = this.subredditService.getSubredditPosts(this.subredditId);
 
     this.subredditTitle = this.subredditService.getSubredditTitle(this.subredditId);
   }

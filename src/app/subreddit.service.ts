@@ -8,36 +8,31 @@ export class SubredditService {
 
   constructor() { }
 
+  // sub service
   getSubreddits(): Subreddit[] {
     return SUBREDDITS;
   }
 
-  getPostsBySubredditId(id: number): UserPost[] {
-    return SUBREDDITS.filter(sub => sub.id === id)[0].userPosts;
+  // sub service
+  getSubredditById(subredditId: number): Subreddit {
+    return SUBREDDITS.filter(sub => sub.id === subredditId)[0];
   }
 
-  getSubredditTitle(id: number): string {
-    return SUBREDDITS.filter(sub => sub.id === id)[0].title;
+  // sub service
+  getSubredditPosts(subredditId: number): UserPost[] {
+    return this.getSubredditById(subredditId).userPosts;
   }
 
-  getPostById(id: number): UserPost {
+  // sub service
+  getSubredditTitle(subredditId: number): string {
+    return this.getSubredditById(subredditId).title;
+  }
+
+  // sub service?
+  getSubredditTitleByPostId(postId: number): string {
     // for(let i = 0; i < SUBREDDITS.length; i++) {
     //   for(let j = 0; j < SUBREDDITS[i].userPosts.length; j++) {
-    //     if (SUBREDDITS[i].userPosts[j].id === id) {
-    //       return SUBREDDITS[i].userPosts[j]
-    //     }
-    //   }
-    // }
-    //
-    // better version below
-
-    return this.getAllPosts().filter(post => post.id === id)[0];
-  }
-
-  getSubredditTitleByPostID(id: number): string {
-    // for(let i = 0; i < SUBREDDITS.length; i++) {
-    //   for(let j = 0; j < SUBREDDITS[i].userPosts.length; j++) {
-    //     if (SUBREDDITS[i].userPosts[j].id === id) {
+    //     if (SUBREDDITS[i].userPosts[j].id === postId) {
     //       return SUBREDDITS[i].title;
     //     }
     //   }
@@ -45,19 +40,55 @@ export class SubredditService {
     //
     // better version below
 
-    return SUBREDDITS.filter(sub => sub.userPosts.filter(post => post.id === id).length === 1)[0].title
+    return SUBREDDITS.filter(sub => sub.userPosts.filter(post => post.id === postId).length === 1)[0].title;
   }
 
-  addComment(commentToAdd: string, targetPostId: number): void {
-    let post = this.getPostById(targetPostId);
-    post.comments.push(commentToAdd);
-  }
-
-  addPost(postTitle: string, postContent:string, targetSubredditId: number): void {
-    let targetSubreddit = SUBREDDITS.filter(sub => sub.id === targetSubredditId)[0];
+  // sub service?
+  addPost(postTitle: string, postContent: string, targetSubredditId: number): void {
+    const targetSubreddit = this.getSubredditById(targetSubredditId);
     targetSubreddit.userPosts.push(new UserPost(postTitle, postContent, [], this.generatePostId()));
   }
 
+
+
+
+  // post service
+  getPostById(postId: number): UserPost {
+    // for(let i = 0; i < SUBREDDITS.length; i++) {
+    //   for(let j = 0; j < SUBREDDITS[i].userPosts.length; j++) {
+    //     if (SUBREDDITS[i].userPosts[j].id === postId) {
+    //       return SUBREDDITS[i].userPosts[j]
+    //     }
+    //   }
+    // }
+    //
+    // better version below
+
+    return this.getAllPosts().filter(post => post.id === postId)[0];
+  }
+
+  // post service
+  getAllPosts(): UserPost[] {
+    // let output = [];
+    //
+    // SUBREDDITS.forEach(sub => {
+    //   output.push(...sub.userPosts);
+    // });
+    //
+    // return output;
+    //
+    // better version below
+
+    return SUBREDDITS.reduce((prev, curr) => [...prev, ...curr.userPosts], []);
+  }
+
+  // post service
+  addComment(commentToAdd: string, targetPostId: number): void {
+    const post = this.getPostById(targetPostId);
+    post.comments.push(commentToAdd);
+  }
+
+  // post service
   generatePostId(): number {
     const posts = this.getAllPosts();
     // let generatedId = 0;
@@ -69,19 +100,9 @@ export class SubredditService {
     // }
 
     // return generatedId + 1;
-
-    return posts[posts.length - 1].id + 1
-  }
-
-  getAllPosts(): UserPost[] {
-    // let output = [];
     //
-    // SUBREDDITS.forEach(sub => {
-    //   output.push(...sub.userPosts);
-    // });
-    //
-    // return output;
+    // better version below
 
-    return SUBREDDITS.reduce((prev, curr) => [...prev, ...curr.userPosts], [])
+    return posts[posts.length - 1].id + 1;
   }
 }
