@@ -40,7 +40,6 @@ export class PostComponent implements OnInit {
   }
 
   formSubmit(comment: string) {
-    // this.subredditService.addComment(comment, this.selectedPostId);
     this.selectedPostComments.push(comment);
   }
 }

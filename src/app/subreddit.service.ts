@@ -46,10 +46,11 @@ export class SubredditService {
 
   // sub service?
   addPost(postTitle: string, postContent: string, targetSubredditId: string): void {
-    const postToAdd: UserPost = new UserPost(postTitle, postContent, []);
-    // const targetSub = this.getSubredditById(targetSubredditId);
-    // targetSub.userPosts.push()
-    this.posts.push(postToAdd);
+    const postToAdd: UserPost = new UserPost(postTitle, postContent, ['first']);
+    const newItem = this.posts.push(postToAdd);
+    const newPostKey = newItem.key;
+    const targetSubPosts = this.getSubredditPosts(targetSubredditId);
+    this.database.object(`subreddits/${targetSubredditId}/userPosts`).update({[newPostKey]: true})
   }
 
   // post service

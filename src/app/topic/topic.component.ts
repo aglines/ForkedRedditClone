@@ -28,12 +28,12 @@ export class TopicComponent implements OnInit {
     this.route.params.forEach(urlParam => {
       this.subredditId = urlParam['id'];
     });
-
     this.postListObservable = this.subredditService.getSubredditPosts(this.subredditId);
 
-    this.postListObservable.forEach(post => {
-      post.forEach(p => {
-        this.subredditService.getPostById(p.$key).subscribe(el => this.posts.push(el));
+    this.postListObservable.subscribe(item => {
+      this.posts = []
+      item.forEach(post => {
+        this.subredditService.getPostById(post.$key).subscribe(el => this.posts.push(el));
       });
     });
 
