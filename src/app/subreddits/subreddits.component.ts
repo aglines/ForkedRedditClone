@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subreddit } from './../subreddit.model';
 import { SubredditService } from './../subreddit.service';
 import { Router } from '@angular/router';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-subreddits',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 
 export class SubredditsComponent implements OnInit {
 
-  subreddits: Subreddit[];
+  subreddits: FirebaseListObservable<any[]>;
 
   constructor(
     private router: Router,

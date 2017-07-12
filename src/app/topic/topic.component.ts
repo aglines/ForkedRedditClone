@@ -3,6 +3,7 @@ import { UserPost } from './../user-post.model';
 import { SubredditService } from './../subreddit.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-topic',
@@ -12,9 +13,10 @@ import { Location } from '@angular/common';
 })
 
 export class TopicComponent implements OnInit {
-  subredditId: number = null;
-  subredditTitle: string = null;
-  posts: UserPost[];
+  subredditId: string = null;
+  subredditTitle: FirebaseObjectObservable<any>;
+  postListObservable: FirebaseListObservable<any[]>;
+  posts = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -24,12 +26,18 @@ export class TopicComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.forEach(urlParam => {
-      this.subredditId = Number(urlParam['id']);
+      this.subredditId = urlParam['id'];
     });
 
-    this.posts = this.subredditService.getSubredditPosts(this.subredditId);
+    this.postListObservable = this.subredditService.getSubredditPosts(this.subredditId);
 
-    this.subredditTitle = this.subredditService.getSubredditTitle(this.subredditId);
+    this.postListObservable.forEach(post => {
+      post.forEach(p => {
+        this.subredditService.getPostById(p.$key).subscribe(el => this.posts.push(el));
+      });
+    });
+
+    this.subredditService.getSubredditById(this.subredditId).subscribe(sub => this.subredditTitle = sub.title);
   }
 
   formPostSubmit(postTitle: string, postContent: string): void {

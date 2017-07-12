@@ -3,7 +3,6 @@ import { UserPost } from './user-post.model';
 export class Subreddit {
   constructor(
     public title: string,
-    public userPosts: UserPost[],
-    public id: number
+    public userPosts: UserPost[] //NOTE FIX ME
   ) {}
 }

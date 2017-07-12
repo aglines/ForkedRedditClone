@@ -1,108 +1,68 @@
 import { Injectable } from '@angular/core';
 import { Subreddit } from './subreddit.model';
-import { SUBREDDITS } from './mock-subreddits';
 import { UserPost } from './user-post.model';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Injectable()
 export class SubredditService {
+  subreddits: FirebaseListObservable<any[]>;
+  posts: FirebaseListObservable<any[]>;
 
-  constructor() { }
-
-  // sub service
-  getSubreddits(): Subreddit[] {
-    return SUBREDDITS;
+  constructor(
+    private database: AngularFireDatabase,
+    private route: ActivatedRoute
+  ) {
+    this.subreddits = database.list('subreddits');
+    this.posts = database.list('posts');
   }
 
   // sub service
-  getSubredditById(subredditId: number): Subreddit {
-    return SUBREDDITS.filter(sub => sub.id === subredditId)[0];
+  getSubreddits() {
+    return this.subreddits;
   }
 
   // sub service
-  getSubredditPosts(subredditId: number): UserPost[] {
-    return this.getSubredditById(subredditId).userPosts;
+  getSubredditById(subredditId: string): FirebaseObjectObservable<any> {
+    return this.database.object(`subreddits/${subredditId}`);
   }
 
   // sub service
-  getSubredditTitle(subredditId: number): string {
-    return this.getSubredditById(subredditId).title;
+  getSubredditPosts(subredditId: string): FirebaseListObservable<any[]> {
+    return this.database.list(`subreddits/${subredditId}/userPosts`);
+  }
+
+  // sub service
+  getSubredditTitle(subredditId: number): FirebaseObjectObservable<any> {
+    return this.database.object(`subreddist/${subredditId}/title`);
   }
 
   // sub service?
-  getSubredditTitleByPostId(postId: number): string {
-    // for(let i = 0; i < SUBREDDITS.length; i++) {
-    //   for(let j = 0; j < SUBREDDITS[i].userPosts.length; j++) {
-    //     if (SUBREDDITS[i].userPosts[j].id === postId) {
-    //       return SUBREDDITS[i].title;
-    //     }
-    //   }
-    // }
-    //
-    // better version below
-
-    return SUBREDDITS.filter(sub => sub.userPosts.filter(post => post.id === postId).length === 1)[0].title;
+  getSubredditTitleFromUrl(): FirebaseObjectObservable<any> {
+    let subredditId: string;
+    this.route.params.forEach(param => subredditId = param['id']);
+    return this.database.object(`subreddits/${subredditId}/title`);
   }
 
   // sub service?
-  addPost(postTitle: string, postContent: string, targetSubredditId: number): void {
-    const targetSubreddit = this.getSubredditById(targetSubredditId);
-    targetSubreddit.userPosts.push(new UserPost(postTitle, postContent, [], this.generatePostId()));
-  }
+  addPost(postTitle: string, postContent: string, targetSubredditId: string): void {
+    const postToAdd: UserPost = new UserPost(postTitle, postContent, []);
+    // const targetSub = this.getSubredditById(targetSubredditId);
+    // targetSub.userPosts.push()
+    this.posts.push(postToAdd);
 
-
-
-
-  // post service
-  getPostById(postId: number): UserPost {
-    // for(let i = 0; i < SUBREDDITS.length; i++) {
-    //   for(let j = 0; j < SUBREDDITS[i].userPosts.length; j++) {
-    //     if (SUBREDDITS[i].userPosts[j].id === postId) {
-    //       return SUBREDDITS[i].userPosts[j]
-    //     }
-    //   }
-    // }
-    //
-    // better version below
-
-    return this.getAllPosts().filter(post => post.id === postId)[0];
   }
 
   // post service
-  getAllPosts(): UserPost[] {
-    // let output = [];
-    //
-    // SUBREDDITS.forEach(sub => {
-    //   output.push(...sub.userPosts);
-    // });
-    //
-    // return output;
-    //
-    // better version below
-
-    return SUBREDDITS.reduce((prev, curr) => [...prev, ...curr.userPosts], []);
+  getPostById(postId: string): FirebaseObjectObservable<any> {
+    return this.database.object(`posts/${postId}`);
   }
 
   // post service
-  addComment(commentToAdd: string, targetPostId: number): void {
-    const post = this.getPostById(targetPostId);
-    post.comments.push(commentToAdd);
-  }
+  addComment(commentToAdd: string, targetPostId: string): void {
+    // const post = this.getPostById(targetPostId);
+    // post.comments.push(commentToAdd);
 
-  // post service
-  generatePostId(): number {
-    const posts = this.getAllPosts();
-    // let generatedId = 0;
-    //
-    // for(let i = 0; i < posts.length; i++) {
-    //   if (posts[i].id > generatedId) {
-    //     generatedId = posts[i].id;
-    //   }
-    // }
-
-    // return generatedId + 1;
-    //
-    // better version below
-
-    return posts[posts.length - 1].id + 1;
+    // this.posts.targetPostId.comments.push(commentToAdd);
   }
 }

@@ -3,6 +3,7 @@ import { UserPost } from './../user-post.model';
 import { SubredditService } from './../subreddit.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
+import { FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-post',
@@ -12,8 +13,9 @@ import { Location } from '@angular/common';
 })
 
 export class PostComponent implements OnInit {
-  selectedPost: UserPost;
-  selectedPostId: number = null;
+  selectedPostObservable: FirebaseObjectObservable<any>;
+  selectedPost;
+  selectedPostId: string = null;
   selectedPostSubreddit: string = null;
 
   constructor(
@@ -22,17 +24,19 @@ export class PostComponent implements OnInit {
     private subredditService: SubredditService
   ) { }
 
+  ngOnInit(): void {
+    this.route.params.forEach(urlParam => {
+      this.selectedPostId = urlParam['postId'];
+    });
+
+    this.selectedPostObservable = this.subredditService.getPostById(this.selectedPostId);
+
+    this.selectedPostObservable.subscribe(post => this.selectedPost = post);
+
+    this.subredditService.getSubredditTitleFromUrl().subscribe(title => {this.selectedPostSubreddit = title.$value});
+  }
+
   formSubmit(comment: string) {
     this.subredditService.addComment(comment, this.selectedPostId);
   }
-
-  ngOnInit(): void {
-    this.route.params.forEach(urlParam => {
-      this.selectedPostId = Number(urlParam['postId']);
-    });
-
-    this.selectedPost = this.subredditService.getPostById(this.selectedPostId);
-    this.selectedPostSubreddit = this.subredditService.getSubredditTitleByPostId(this.selectedPostId);
-  }
-
 }

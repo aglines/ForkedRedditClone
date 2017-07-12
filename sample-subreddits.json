@@ -1,0 +1,81 @@
+{
+  "subreddits": {
+    "sub1": {
+      "title": "Jokes",
+      "userPosts": {
+        "post1": true,
+        "post2": true
+      }
+    },
+    "sub2": {
+      "title": "Programming",
+      "userPosts": {
+        "post3": true,
+        "post4": true
+      }
+    },
+    "sub3": {
+      "title": "Puppies",
+      "userPosts": {
+        "post5": true,
+        "post6": true
+      }
+    }
+  },
+  "posts": {
+    "post1": {
+      "postTitle": "What do you get when you cross something with another thing?",
+      "description": "Nothing!",
+      "comments": [
+        "first",
+        "second",
+        "*flames*"
+      ]
+    },
+    "post2": {
+      "postTitle": "A man walks into a bar...",
+      "description": "He said ouch!",
+      "comments": [
+        "agree",
+        "disagree",
+        "*flames*"
+      ]
+    },
+    "post3": {
+      "postTitle": "JavaScript is...",
+      "description": "great",
+      "comments": [
+        "agree",
+        "disagree",
+        "*more flames*"
+      ]
+    },
+    "post4": {
+      "postTitle": "Wht is 'this'?",
+      "description": "nobody knows",
+      "comments": [
+        "first",
+        "agree",
+        "*flames*"
+      ]
+    },
+    "post5": {
+      "postTitle": "what vaccines do new puppies need?",
+      "description": "just got a new pug",
+      "comments": [
+        "no vaccines",
+        "why would you want a puppy?",
+        "puppies are ugly"
+      ]
+    },
+    "post6": {
+      "postTitle": "free puppers",
+      "description": "buy five puppies get one free",
+      "comments": [
+        "this is deceiving",
+        "click bait",
+        "*flames*"
+      ]
+    }
+  }
+}
