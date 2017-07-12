@@ -3,7 +3,7 @@ import { UserPost } from './../user-post.model';
 import { SubredditService } from './../subreddit.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-post',
@@ -15,6 +15,7 @@ import { FirebaseObjectObservable } from 'angularfire2/database';
 export class PostComponent implements OnInit {
   selectedPostObservable: FirebaseObjectObservable<any>;
   selectedPost;
+  selectedPostComments: FirebaseListObservable<any[]>;
   selectedPostId: string = null;
   selectedPostSubreddit: string = null;
 
@@ -33,10 +34,13 @@ export class PostComponent implements OnInit {
 
     this.selectedPostObservable.subscribe(post => this.selectedPost = post);
 
+    this.selectedPostComments = this.subredditService.getPostComments(this.selectedPostId);
+
     this.subredditService.getSubredditTitleFromUrl().subscribe(title => {this.selectedPostSubreddit = title.$value});
   }
 
   formSubmit(comment: string) {
-    this.subredditService.addComment(comment, this.selectedPostId);
+    // this.subredditService.addComment(comment, this.selectedPostId);
+    this.selectedPostComments.push(comment);
   }
 }

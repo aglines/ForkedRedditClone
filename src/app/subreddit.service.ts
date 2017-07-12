@@ -50,7 +50,6 @@ export class SubredditService {
     // const targetSub = this.getSubredditById(targetSubredditId);
     // targetSub.userPosts.push()
     this.posts.push(postToAdd);
-
   }
 
   // post service
@@ -58,11 +57,7 @@ export class SubredditService {
     return this.database.object(`posts/${postId}`);
   }
 
-  // post service
-  addComment(commentToAdd: string, targetPostId: string): void {
-    // const post = this.getPostById(targetPostId);
-    // post.comments.push(commentToAdd);
-
-    // this.posts.targetPostId.comments.push(commentToAdd);
+  getPostComments(postId: string) {
+    return this.database.list(`posts/${postId}/comments`);
   }
 }
